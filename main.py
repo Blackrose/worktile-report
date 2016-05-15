@@ -3,8 +3,11 @@ import tornado.web
 import os
 
 class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render("index.html")
+    def get(self, input):
+        if input == None:
+            self.render("index.html")
+        else:
+            print input
 
 class GetReport(tornado.web.RequestHandler):
     def get(self):
