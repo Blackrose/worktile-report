@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href={{ static_url("css/style.css") }} type="text/css" />
+    <title></title>
+</head>
+<body>
+    <h1>Project Report</h1>
+    <ul>
+        {% for prj in prjs_list %}
+            {% for grp in groups_list %}
+                {% if prj['id'] == grp['gid'] %}
+            <li>
+                    {{prj['name']}}:{{grp['name']}}
+                    {% for task in tasks_list %}
+                        {% if task['gid'] == grp['gid'] %}
+                            {{task['name']}}
+                        {% end %}
+                    {% end %}
+            </li>
+                {% end %}
+            {% end %}
+        {% end %}
+    </ul>
+
+</body>
+</html>

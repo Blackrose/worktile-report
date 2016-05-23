@@ -2,15 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href={{ static_url("css/style.css") }} type="text/css" />
     <title></title>
- </head>
+</head>
 <body>
+    <form action="generate_report" method="post">
+        <input type="text" name="project-ids">
+        <input type="submit" class="btn btn-default" value="Generate">
+    </form>
+    <h1>All Projects</h1>
+    <ul>
+        {% for prj in projects_list %}
+            {% for p in prj %}
+            <li>
+                <input id="permitted" type="checkbox">
+                <label for="permitted" class="side-label">
+                {{p['name']}}
+                </label>
+                {% for prj in groups_list %}
+                    {% for g in prj %}
+                    {% if g['pid'] == p['id'] %}
+                            {{g['name']}}
+                            <ul>
+                            {% for prj in tasks_list %}
+                                {% for t in prj %}
+                                {% if t['gid'] == g['gid'] %}
+                                <li>{{t['name']}}</li>
+                                {% end %}
+                                {% end %}
+                            {% end %}
+                            </ul>
+                        {% end %}
+                    {% end %}
+                {% end %}
+            </li>
+            {% end %}
+        {% end %}
+    </ul>
 
-
-    <h1>授权请求中...</h1>
-<script>
-    window.location.href="https://open.worktile.com/oauth2/authorize?client_id=d696ca9c255f4a9a832bb1b127a41196&redirect_uri=http://report.blackrose.me";;
-
-</script>
 </body>
 </html>
